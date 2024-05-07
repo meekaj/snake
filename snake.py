@@ -33,8 +33,8 @@ def outside_window():
     return x < left_wall or x > right_wall or y > top_wall or y < bottom_wall
 
 def game_over():
-    snake.color('yellow')
-    leaf.color('yellow')
+    snake.color('orange')
+    leaf.color('orange')
     t.penup()
     t.hideturtle()
     t.write('GAME OVER!', align='center', font=('Arial', 30, 'normal'))
@@ -54,20 +54,35 @@ def place_leaf():
     leaf.sety(rd.randint(-200, 200))
     leaf.showturtle()
 
+def display_instructions():
+    text_turtle.clear()
+    text_turtle.penup()
+    text_turtle.hideturtle()
+    text_turtle.goto(0, 20) #higher for first line
+    text_turtle.write('Press Space to Start!', align='center', font=('Arial', 30, 'normal'))
+    text_turtle.goto(0, -40)
+    text_turtle.write('Use arrow keys to control', align='center', font=('Arial', 30, 'normal'))
+
 def start_game():
     global game_started
     if game_started:
         return
     game_started = True
-    snake.hideturtle()
     
-    score = 0
-    text_turtle.clear()
-    
+    text_turtle.clear() 
+    score_turtle.clear()
+
     snake_speed = 2
     snake_length = 3
+    score = 0
+
+    #snake appearance and position
     snake.shapesize(1, snake_length, 1)
+    snake.color('black')  
+    snake.penup()
+    snake.goto(0, 0) 
     snake.showturtle()
+
     display_score(score)
     place_leaf()
     
@@ -112,6 +127,7 @@ def main():
     setup_snake()
     setup_leaf()
     setup_scoreboard()
+    display_instructions()
     bind_keys()
     t.listen()
     t.mainloop()
