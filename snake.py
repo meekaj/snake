@@ -37,7 +37,7 @@ def game_over():
     leaf.color('orange')
     t.penup()
     t.hideturtle()
-    t.write('GAME OVER!', align='center', font=('Arial', 30, 'normal'))
+    t.write('GAME OVER! Press Space to play again', align='center', font=('Arial', 30, 'normal'))
     t.onkey(start_game, 'space')
 
 def display_score(current_score):
