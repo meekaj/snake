@@ -2,15 +2,15 @@ import turtle as t
 import random as rd
 
 def setup_window():
-    t.bgcolor('yellow')
+    t.bgcolor('orange')
     t.title("Turtle Snake Game")
 
-def setup_caterpillar():
-    caterpillar.shape('square')
-    caterpillar.color('black')
-    caterpillar.speed(0)
-    caterpillar.penup()
-    caterpillar.hideturtle()
+def setup_snake():
+    snake.shape('square')
+    snake.color('black')
+    snake.speed(0)
+    snake.penup()
+    snake.hideturtle()
 
 def setup_leaf():
     leaf_shape = ((0, 0), (14, 2), (18, 6), (20, 20), (6, 18), (2, 14))
@@ -29,11 +29,11 @@ def outside_window():
     right_wall = t.window_width() / 2
     top_wall = t.window_height() / 2
     bottom_wall = -t.window_height() / 2
-    (x, y) = caterpillar.pos()
+    (x, y) = snake.pos()
     return x < left_wall or x > right_wall or y > top_wall or y < bottom_wall
 
 def game_over():
-    caterpillar.color('yellow')
+    snake.color('yellow')
     leaf.color('yellow')
     t.penup()
     t.hideturtle()
@@ -59,24 +59,25 @@ def start_game():
     if game_started:
         return
     game_started = True
+    snake.hideturtle()
     
     score = 0
     text_turtle.clear()
     
-    caterpillar_speed = 2
-    caterpillar_length = 3
-    caterpillar.shapesize(1, caterpillar_length, 1)
-    caterpillar.showturtle()
+    snake_speed = 2
+    snake_length = 3
+    snake.shapesize(1, snake_length, 1)
+    snake.showturtle()
     display_score(score)
     place_leaf()
     
     while True:
-        caterpillar.forward(caterpillar_speed)
-        if caterpillar.distance(leaf) < 20:
+        snake.forward(snake_speed)
+        if snake.distance(leaf) < 20:
             place_leaf()
-            caterpillar_length += 1
-            caterpillar.shapesize(1, caterpillar_length, 1)
-            caterpillar_speed += 1
+            snake_length += 1
+            snake.shapesize(1, snake_length, 1)
+            snake_speed += 1
             score += 10
             display_score(score)
         if outside_window():
@@ -91,24 +92,24 @@ def bind_keys():
     t.onkey(move_left, 'Left')
 
 def move_up():
-    if caterpillar.heading() != 270:
-        caterpillar.setheading(90)
+    if snake.heading() != 270:
+        snake.setheading(90)
 
 def move_down():
-    if caterpillar.heading() != 90:
-        caterpillar.setheading(270)
+    if snake.heading() != 90:
+        snake.setheading(270)
 
 def move_left():
-    if caterpillar.heading() != 0:
-        caterpillar.setheading(180)
+    if snake.heading() != 0:
+        snake.setheading(180)
 
 def move_right():
-    if caterpillar.heading() != 180:
-        caterpillar.setheading(0)
+    if snake.heading() != 180:
+        snake.setheading(0)
 
 def main():
     setup_window()
-    setup_caterpillar()
+    setup_snake()
     setup_leaf()
     setup_scoreboard()
     bind_keys()
@@ -116,7 +117,7 @@ def main():
     t.mainloop()
 
 if __name__ == '__main__':
-    caterpillar = t.Turtle()
+    snake = t.Turtle()
     leaf = t.Turtle()
     text_turtle = t.Turtle()
     score_turtle = t.Turtle()
